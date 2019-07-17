@@ -35,6 +35,7 @@ class Row extends React.PureComponent {
             prevCell={this.props.game.prevMatrix[this.props.index][index]}
             game={this.props.game}
             key={`cell${this.props.index}${index}`}
+            isRunning={this.props.isRunning}
           />
         ))}
       </RowBox>
