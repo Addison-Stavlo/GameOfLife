@@ -63,3 +63,4 @@ class GameOfLife {
 // console.log(game.matrix);
 // game.calcNextGen();
 // console.log(game.matrix);
+export default GameOfLife;
