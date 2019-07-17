@@ -12,6 +12,8 @@ class GameManager extends React.Component {
     this.state = {
       height: 50,
       width: 50,
+      isolationLimit: 3,
+      suffocationLimit: 6,
       ruleSet: "custom",
       matrix: [[]],
       isRunning: false
@@ -20,7 +22,9 @@ class GameManager extends React.Component {
 
   componentDidMount() {
     this.setState({
-      matrix: game.matrix
+      matrix: game.matrix,
+      isolationLimit: game.ISOLATION_LIMIT,
+      suffocationLimit: game.SUFFOCATION_LIMIT
     });
   }
 
@@ -29,6 +33,13 @@ class GameManager extends React.Component {
     this.setState({
       matrix: game.matrix
     });
+    if (game.numActive === 0) {
+      this.pause();
+      setTimeout(
+        () => alert("All life has wasted away...\nPlease try again!"),
+        500
+      );
+    }
   };
 
   play = () => {
@@ -48,8 +59,11 @@ class GameManager extends React.Component {
     game = new GameOfLife(
       Number(this.state.height),
       Number(this.state.height),
-      this.state.ruleSet
+      this.state.ruleSet,
+      Number(this.state.isolationLimit),
+      Number(this.state.suffocationLimit)
     );
+    console.log(this.state.isolationLimit);
     this.setState({ matrix: game.matrix });
   };
 
@@ -80,9 +94,10 @@ class GameManager extends React.Component {
         <button onClick={this.pause}>Pause</button>
         <button onClick={this.reset}>Reset</button>
 
-        {/* Options */}
+        {/* ---Options--- */}
         <div>
           <h1 style={{ color: "white", margin: "10px" }}>Options</h1>
+          {/* ---Size Option--- */}
           <div
             style={{
               display: "flex",
@@ -101,6 +116,7 @@ class GameManager extends React.Component {
               <option value={75}>75</option>
             </select>
           </div>
+          {/* ---Rules Option--- */}
           <div
             style={{
               display: "flex",
@@ -118,6 +134,43 @@ class GameManager extends React.Component {
               <option value={"classic"}>Classic</option>
             </select>
           </div>
+          {/* ---Custom Rules Options--- */}
+          {this.state.ruleSet === "custom" ? (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "10px"
+                }}
+              >
+                <h3 style={{ color: "white", marginRight: "10px" }}>
+                  Suffocation Limit:{" "}
+                </h3>
+                <input
+                  name="suffocationLimit"
+                  value={this.state.suffocationLimit}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "10px"
+                }}
+              >
+                <h3 style={{ color: "white", marginRight: "10px" }}>
+                  Isolation Limit:{" "}
+                </h3>
+                <input
+                  name="isolationLimit"
+                  value={this.state.isolationLimit}
+                  onChange={this.handleChange}
+                />
+              </div>
+            </>
+          ) : null}
           <button onClick={this.reset}>Set Options</button>
         </div>
       </>
