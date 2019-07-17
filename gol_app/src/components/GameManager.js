@@ -96,7 +96,16 @@ class GameManager extends React.Component {
 
         {/* ---Options--- */}
         <div>
-          <h1 style={{ color: "white", margin: "10px" }}>Options</h1>
+          <h1
+            style={{
+              color: "white",
+              margin: "10px",
+              textDecoration: "underline",
+              fontWeight: "bold"
+            }}
+          >
+            Options
+          </h1>
           {/* ---Size Option--- */}
           <div
             style={{
@@ -148,6 +157,7 @@ class GameManager extends React.Component {
                   Suffocation Limit:{" "}
                 </h3>
                 <input
+                  style={{ width: "20px" }}
                   name="suffocationLimit"
                   value={this.state.suffocationLimit}
                   onChange={this.handleChange}
@@ -164,6 +174,7 @@ class GameManager extends React.Component {
                   Isolation Limit:{" "}
                 </h3>
                 <input
+                  style={{ width: "20px" }}
                   name="isolationLimit"
                   value={this.state.isolationLimit}
                   onChange={this.handleChange}
