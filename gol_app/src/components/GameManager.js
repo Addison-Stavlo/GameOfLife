@@ -2,7 +2,7 @@ import React from "react";
 import Row from "./Row";
 import GameOfLife from "../gol_logic/GameOfLife.js";
 
-let game = new GameOfLife(50, 50, "classic");
+let game = new GameOfLife(75, 75, "custom");
 let intervalId;
 
 class GameManager extends React.Component {
@@ -29,7 +29,7 @@ class GameManager extends React.Component {
 
   play = () => {
     this.setState({ running: true });
-    intervalId = setInterval(this.calcNextGen, 500);
+    intervalId = setInterval(this.calcNextGen, 200);
   };
 
   pause = () => {
@@ -40,7 +40,7 @@ class GameManager extends React.Component {
   reset = () => {
     this.setState({ running: false });
     clearInterval(intervalId);
-    game = new GameOfLife(50, 50, "custom");
+    game = new GameOfLife(75, 75, "custom");
   };
 
   render() {
@@ -48,7 +48,7 @@ class GameManager extends React.Component {
       <>
         <div style={{ display: "flex", flexDirection: "column" }}>
           {this.state.matrix.map((row, index) => (
-            <Row row={row} index={index} game={game} />
+            <Row row={row} index={index} game={game} key={`row${index}`} />
           ))}
         </div>
         <button onClick={this.calcNextGen}>Next Gen</button>
