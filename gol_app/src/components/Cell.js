@@ -8,16 +8,31 @@ class Cell extends React.Component {
     this.forceUpdate();
   };
 
+  determineColor = () => {
+    if (this.props.game.matrix[this.props.row][this.props.col]) {
+      // active and established
+      if (this.props.game.prevMatrix[this.props.row][this.props.col]) {
+        return "green";
+      }
+      // active and new
+      else {
+        return "limegreen";
+      }
+    } else {
+      // inactive and decaying
+      if (this.props.game.prevMatrix[this.props.row][this.props.col]) {
+        return "yellow";
+      }
+      // inactive and decayed
+      else {
+        return "rgb(61, 38, 9)";
+      }
+    }
+  };
+
   render() {
     return (
-      <CellBox
-        onClick={this.toggleCell}
-        cellColor={
-          this.props.game.matrix[this.props.row][this.props.col]
-            ? "green"
-            : "brown"
-        }
-      />
+      <CellBox onClick={this.toggleCell} cellColor={this.determineColor()} />
     );
   }
 }

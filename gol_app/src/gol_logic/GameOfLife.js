@@ -6,6 +6,7 @@ class GameOfLife {
     this.height = height;
     this.width = width;
     this.matrix = this.generateMatrix();
+    this.prevMatrix = this.generateMatrix();
     this.gameMode = gameMode;
   }
 
@@ -53,6 +54,7 @@ class GameOfLife {
         }
       }
     }
+    this.prevMatrix = this.matrix;
     this.matrix = matrix;
   }
   // prettier-ignore
