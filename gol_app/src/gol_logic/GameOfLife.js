@@ -2,10 +2,11 @@ const ISOLATION_LIMIT = 3;
 const SUFFOCATION_LIMIT = 6;
 
 class GameOfLife {
-  constructor(height, width) {
+  constructor(height, width, gameMode = "classic") {
     this.height = height;
     this.width = width;
     this.matrix = this.generateMatrix();
+    this.gameMode = gameMode;
   }
 
   generateMatrix() {
@@ -25,13 +26,30 @@ class GameOfLife {
     for (let row = 0; row < this.height; row++) {
       for (let i = 0; i < this.width; i++) {
         let liveNeighbors = this.countNeighbors(row, i);
-        if (
-          liveNeighbors >= ISOLATION_LIMIT &&
-          liveNeighbors <= SUFFOCATION_LIMIT
-        ) {
-          matrix[row][i] = 1;
-        } else {
-          matrix[row][i] = 0;
+        // custom game rules
+        if (this.gameMode == "custom") {
+          if (
+            liveNeighbors >= ISOLATION_LIMIT &&
+            liveNeighbors <= SUFFOCATION_LIMIT
+          ) {
+            matrix[row][i] = 1;
+          } else {
+            matrix[row][i] = 0;
+          }
+        }
+        // classic rules
+        else {
+          if (this.matrix[row][i] === 1) {
+            if (liveNeighbors === 2 || liveNeighbors === 3) {
+              matrix[row][i] = 1;
+            } else {
+              matrix[row][i] = 0;
+            }
+          } else {
+            if (liveNeighbors === 3) {
+              matrix[row][i] = 1;
+            }
+          }
         }
       }
     }
