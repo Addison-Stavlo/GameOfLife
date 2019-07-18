@@ -76,6 +76,88 @@ class GameManager extends React.Component {
   render() {
     return (
       <>
+        <h1 style={{ color: "white", fontSize: "30px", marginBottom: "10px" }}>
+          Addie's Game of Life
+        </h1>
+        <p style={{ color: "white", fontSize: "16px", marginBottom: "10px" }}>
+          (Set 'Classic' Rule Set for Conway's)
+        </p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            width: "150px",
+            margin: "5px auto"
+          }}
+        >
+          <div
+            style={{
+              width: "15px",
+              height: "15px",
+              border: "1px dashed black",
+              marginRight: "10px",
+              background: "limegreen"
+            }}
+          />
+          <h1 style={{ color: "white" }}>New Life</h1>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            width: "150px",
+            margin: "5px auto"
+          }}
+        >
+          <div
+            style={{
+              width: "15px",
+              height: "15px",
+              border: "1px dashed black",
+              marginRight: "10px",
+              background: "green"
+            }}
+          />
+          <h1 style={{ color: "white" }}>Established Life</h1>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            width: "150px",
+            margin: "5px auto"
+          }}
+        >
+          <div
+            style={{
+              width: "15px",
+              height: "15px",
+              border: "1px dashed black",
+              marginRight: "10px",
+              background: "yellow"
+            }}
+          />
+          <h1 style={{ color: "white" }}>Decaying Death</h1>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-start",
+            width: "150px",
+            margin: "5px auto"
+          }}
+        >
+          <div
+            style={{
+              width: "15px",
+              height: "15px",
+              border: "1px dashed black",
+              marginRight: "10px",
+              background: "rgb(61, 38, 9)"
+            }}
+          />
+          <h1 style={{ color: "white" }}>No Life</h1>
+        </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           {this.state.matrix.map((row, index) => (
             <Row
@@ -106,6 +188,10 @@ class GameManager extends React.Component {
           >
             Options
           </h1>
+          <p style={{ color: "white", fontSize: "14px", marginBottom: "20px" }}>
+            (note: be sure to hit "Set Options" or "Reset" button for the new
+            options to take effect.)
+          </p>
           {/* ---Size Option--- */}
           <div
             style={{
