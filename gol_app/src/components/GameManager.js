@@ -134,7 +134,7 @@ class GameManager extends React.Component {
               height: "15px",
               border: "1px dashed black",
               marginRight: "10px",
-              background: "yellow"
+              background: "orange"
             }}
           />
           <h1 style={{ color: "white" }}>Decaying Death</h1>
