@@ -21,6 +21,11 @@ class GameManager extends React.Component {
   }
 
   componentDidMount() {
+    game.toggleCell(25, 25);
+    game.toggleCell(24, 25);
+    game.toggleCell(25, 24);
+    game.toggleCell(24, 24);
+    game.toggleCell(26, 26);
     this.setState({
       matrix: game.matrix,
       isolationLimit: game.ISOLATION_LIMIT,
