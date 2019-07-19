@@ -2,6 +2,8 @@ import React from "react";
 import Row from "./Row";
 import GameOfLife from "../gol_logic/GameOfLife.js";
 import styled from "styled-components";
+import TitleText from "./headers/TitleText";
+import ColorDescriptions from "./headers/ColorDescriptions";
 
 let game = new GameOfLife(50, 50, "custom");
 let intervalId;
@@ -82,28 +84,8 @@ class GameManager extends React.Component {
   render() {
     return (
       <>
-        <h1 style={{ color: "white", fontSize: "30px", marginBottom: "10px" }}>
-          Addie's Game of Life
-        </h1>
-        <p style={{ color: "white", fontSize: "16px", marginBottom: "10px" }}>
-          (Set 'Classic' Rule Set for Conway's)
-        </p>
-        <ColorDescriptor color={"limegreen"} theme={{ main: "limegreen" }}>
-          <div />
-          <h1>New Life</h1>
-        </ColorDescriptor>
-        <ColorDescriptor color="green">
-          <div />
-          <h1>Established Life</h1>
-        </ColorDescriptor>
-        <ColorDescriptor color="orange">
-          <div />
-          <h1>Decaying Death</h1>
-        </ColorDescriptor>
-        <ColorDescriptor color="rgb(61, 38, 9)">
-          <div />
-          <h1>No Life</h1>
-        </ColorDescriptor>
+        <TitleText />
+        <ColorDescriptions />
         <div style={{ display: "flex", flexDirection: "column" }}>
           {this.state.matrix.map((row, index) => (
             <Row
@@ -220,24 +202,5 @@ class GameManager extends React.Component {
     );
   }
 }
-
-const ColorDescriptor = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  width: 150px;
-  margin: 5px auto;
-
-  div {
-    width: 15px;
-    height: 15px;
-    border: 1px dashed black;
-    margin-right: 10px;
-    background: ${props => props.color};
-  }
-
-  h1 {
-    color: white;
-  }
-`;
 
 export default GameManager;
