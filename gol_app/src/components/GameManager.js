@@ -29,7 +29,7 @@ class GameManager extends React.Component {
       ruleSet: "classic",
       matrix: [[]],
       isRunning: false,
-      gameFPS: 5,
+      gameFPS: 10,
       seedChance: 50
     };
   }
