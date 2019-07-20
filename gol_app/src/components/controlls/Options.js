@@ -19,6 +19,18 @@ export default function Options(props) {
       </Option>
       {/* ---Rules Option--- */}
       <Option>
+        <h3>Seed Chance: {props.seedChance}</h3>
+        <input
+          name="seedChance"
+          value={props.seedChance}
+          type="range"
+          min={0}
+          max={100}
+          onChange={props.handleChange}
+          className="slider"
+        />
+      </Option>
+      <Option>
         <h3>Rule Set: </h3>
         <select
           name="ruleSet"
@@ -34,11 +46,6 @@ export default function Options(props) {
         <>
           <Option>
             <h3>Suffocation Limit: {props.suffocationLimit}</h3>
-            {/* <input
-              name="suffocationLimit"
-              value={props.suffocationLimit}
-              onChange={props.handleChange}
-            /> */}
             <input
               name="suffocationLimit"
               value={props.suffocationLimit}
@@ -51,11 +58,6 @@ export default function Options(props) {
           </Option>
           <Option>
             <h3>Isolation Limit: {props.isolationLimit}</h3>
-            {/* <input
-              name="isolationLimit"
-              value={props.isolationLimit}
-              onChange={props.handleChange}
-            /> */}
             <input
               name="isolationLimit"
               value={props.isolationLimit}
