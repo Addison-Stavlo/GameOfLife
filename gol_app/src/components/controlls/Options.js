@@ -33,19 +33,37 @@ export default function Options(props) {
       {props.ruleSet === "custom" ? (
         <>
           <Option>
-            <h3>Suffocation Limit: </h3>
-            <input
+            <h3>Suffocation Limit: {props.suffocationLimit}</h3>
+            {/* <input
               name="suffocationLimit"
               value={props.suffocationLimit}
               onChange={props.handleChange}
+            /> */}
+            <input
+              name="suffocationLimit"
+              value={props.suffocationLimit}
+              type="range"
+              min={0}
+              max={9}
+              onChange={props.handleChange}
+              className="slider"
             />
           </Option>
           <Option>
-            <h3>Isolation Limit: </h3>
-            <input
+            <h3>Isolation Limit: {props.isolationLimit}</h3>
+            {/* <input
               name="isolationLimit"
               value={props.isolationLimit}
               onChange={props.handleChange}
+            /> */}
+            <input
+              name="isolationLimit"
+              value={props.isolationLimit}
+              type="range"
+              min={0}
+              max={9}
+              onChange={props.handleChange}
+              className="slider"
             />
           </Option>
         </>
@@ -86,5 +104,9 @@ const Option = styled.div`
 
   input {
     width: 20px;
+  }
+
+  .slider {
+    width: 100px;
   }
 `;
