@@ -25,7 +25,7 @@ export default function ColorDescriptions(props) {
 }
 
 const DescriptionWrapper = styled.div`
-  border: 2px solid rgb(70, 70, 70);
+  /* border: 2px solid rgb(70, 70, 70); */
   max-width: 200px;
   margin: 0 auto;
 `;

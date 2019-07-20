@@ -11,7 +11,7 @@ export default function TitleText(props) {
 }
 
 const Title = styled.div`
-  border: 2px solid rgb(70, 70, 70);
+  /* border: 2px solid rgb(70, 70, 70); */
   max-width: 300px;
   margin: 0 auto;
   h1 {

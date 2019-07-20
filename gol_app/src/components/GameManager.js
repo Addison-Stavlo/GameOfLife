@@ -4,8 +4,9 @@ import GameOfLife from "../gol_logic/GameOfLife.js";
 import styled from "styled-components";
 import TitleText from "./headers/TitleText";
 import ColorDescriptions from "./headers/ColorDescriptions";
+import Options from "./options/Options";
 
-let game = new GameOfLife(50, 50, "custom");
+let game;
 let intervalId;
 
 class GameManager extends React.Component {
@@ -24,6 +25,11 @@ class GameManager extends React.Component {
   }
 
   componentDidMount() {
+    this.loadPreset1();
+  }
+
+  loadPreset1 = () => {
+    game = new GameOfLife(50, 50, "custom");
     game.toggleCell(25, 25);
     game.toggleCell(24, 25);
     game.toggleCell(25, 24);
@@ -34,7 +40,7 @@ class GameManager extends React.Component {
       isolationLimit: game.ISOLATION_LIMIT,
       suffocationLimit: game.SUFFOCATION_LIMIT
     });
-  }
+  };
 
   calcNextGen = () => {
     game.calcNextGen();
@@ -104,100 +110,14 @@ class GameManager extends React.Component {
         <button onClick={this.pause}>Pause</button>
         <button onClick={this.reset}>Reset</button>
 
-        {/* ---Options--- */}
-        <div>
-          <h1
-            style={{
-              color: "white",
-              margin: "10px",
-              textDecoration: "underline",
-              fontWeight: "bold"
-            }}
-          >
-            Options
-          </h1>
-          <p style={{ color: "white", fontSize: "14px", marginBottom: "20px" }}>
-            (note: be sure to hit "Set Options" or "Reset" button for the new
-            options to take effect.)
-          </p>
-          {/* ---Size Option--- */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            <h3 style={{ color: "white", marginRight: "10px" }}>Grid Size: </h3>
-            <select
-              name="height"
-              value={this.state.height}
-              onChange={this.handleChange}
-            >
-              <option value={30}>30</option>
-              <option value={50}>50</option>
-              <option value={75}>75</option>
-            </select>
-          </div>
-          {/* ---Rules Option--- */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            <h3 style={{ color: "white", marginRight: "10px" }}>Rule Set: </h3>
-            <select
-              name="ruleSet"
-              value={this.state.ruleSet}
-              onChange={this.handleChange}
-            >
-              <option value={"custom"}>Custom</option>
-              <option value={"classic"}>Classic</option>
-            </select>
-          </div>
-          {/* ---Custom Rules Options--- */}
-          {this.state.ruleSet === "custom" ? (
-            <>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "10px"
-                }}
-              >
-                <h3 style={{ color: "white", marginRight: "10px" }}>
-                  Suffocation Limit:{" "}
-                </h3>
-                <input
-                  style={{ width: "20px" }}
-                  name="suffocationLimit"
-                  value={this.state.suffocationLimit}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "10px"
-                }}
-              >
-                <h3 style={{ color: "white", marginRight: "10px" }}>
-                  Isolation Limit:{" "}
-                </h3>
-                <input
-                  style={{ width: "20px" }}
-                  name="isolationLimit"
-                  value={this.state.isolationLimit}
-                  onChange={this.handleChange}
-                />
-              </div>
-            </>
-          ) : null}
-          <button onClick={this.reset}>Set Options</button>
-        </div>
+        <Options
+          height={this.state.height}
+          handleChange={this.handleChange}
+          ruleSet={this.state.ruleSet}
+          suffocationLimit={this.state.suffocationLimit}
+          isolationLimit={this.state.isolationLimit}
+          reset={this.reset}
+        />
       </>
     );
   }
