@@ -10,6 +10,14 @@ import Controls from "./controlls/Controlls";
 let game = new GameOfLife(50, 50, "custom");
 let intervalId;
 
+const preset1 = {
+  size: 50,
+  ruleType: "custom",
+  isolationLimit: 3,
+  suffocationLimit: 6,
+  coords: [[25, 25], [24, 25], [25, 24], [24, 24], [26, 26]]
+};
+
 class GameManager extends React.Component {
   constructor(props) {
     super(props);
@@ -20,21 +28,34 @@ class GameManager extends React.Component {
       suffocationLimit: 6,
       ruleSet: "custom",
       matrix: [[]],
-      isRunning: false
+      isRunning: false,
+      gameFPS: 5
     };
   }
 
   componentDidMount() {
-    this.loadPreset1();
+    this.loadPreset(preset1);
   }
 
-  loadPreset1 = () => {
-    game = new GameOfLife(50, 50, "custom");
-    game.toggleCell(25, 25);
-    game.toggleCell(24, 25);
-    game.toggleCell(25, 24);
-    game.toggleCell(24, 24);
-    game.toggleCell(26, 26);
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.gameFPS !== this.state.gameFPS && this.state.isRunning) {
+      this.changeSpeed();
+    }
+  }
+
+  loadPreset = preset => {
+    game = new GameOfLife(
+      preset.size,
+      preset.size,
+      preset.ruleType,
+      preset.isolationLimit,
+      preset.suffocationLimit
+    );
+
+    for (let i in preset.coords) {
+      game.toggleCell(preset.coords[i][0], preset.coords[i][1]);
+    }
+
     this.setState({
       matrix: game.matrix,
       isolationLimit: game.ISOLATION_LIMIT,
@@ -58,12 +79,23 @@ class GameManager extends React.Component {
 
   play = () => {
     this.setState({ isRunning: true });
-    intervalId = setInterval(this.calcNextGen, 200);
+    intervalId = setInterval(
+      this.calcNextGen,
+      1000 / Number(this.state.gameFPS)
+    );
   };
 
   pause = () => {
     this.setState({ isRunning: false });
     clearInterval(intervalId);
+  };
+
+  changeSpeed = () => {
+    clearInterval(intervalId);
+    intervalId = setInterval(
+      this.calcNextGen,
+      1000 / Number(this.state.gameFPS)
+    );
   };
 
   reset = () => {
@@ -107,6 +139,8 @@ class GameManager extends React.Component {
           play={this.play}
           pause={this.pause}
           reset={this.reset}
+          handleChange={this.handleChange}
+          gameFPS={this.state.gameFPS}
         />
         <Options
           width={this.state.width}
