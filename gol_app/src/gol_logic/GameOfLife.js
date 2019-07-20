@@ -28,6 +28,16 @@ class GameOfLife {
     this.matrix[row][col] = this.matrix[row][col] === 0 ? 1 : 0;
   }
 
+  randomizeBoard(ratioToActivate) {
+    for (let row in this.matrix) {
+      for (let col in this.matrix[row]) {
+        if (Math.random() <= ratioToActivate) {
+          this.matrix[row][col] = 1;
+        }
+      }
+    }
+  }
+
   calcNextGen() {
     const matrix = this.generateMatrix();
     let numActive = 0;
