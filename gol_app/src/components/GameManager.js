@@ -1,32 +1,72 @@
 import React from "react";
 import Row from "./Row";
 import GameOfLife from "../gol_logic/GameOfLife.js";
+import styled from "styled-components";
+import TitleText from "./headers/TitleText";
+import ColorDescriptions from "./headers/ColorDescriptions";
+import Options from "./controlls/Options";
+import Controls from "./controlls/Controlls";
 
-let game = new GameOfLife(50, 50, "custom");
+let game = new GameOfLife(50, 50, "classic");
 let intervalId;
+
+const preset1 = {
+  size: 50,
+  ruleType: "custom",
+  isolationLimit: 3,
+  suffocationLimit: 6,
+  coords: [[25, 25], [24, 25], [25, 24], [24, 24], [26, 26]]
+};
 
 class GameManager extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      height: 50,
       width: 50,
       isolationLimit: 3,
       suffocationLimit: 6,
-      ruleSet: "custom",
+      ruleSet: "classic",
       matrix: [[]],
-      isRunning: false
+      isRunning: false,
+      gameFPS: 5,
+      seedChance: 50
     };
   }
 
   componentDidMount() {
+    // this.loadPreset(preset1);
+    game.randomizeBoard(Number(this.state.seedChance) / 100);
+    this.setState({ matrix: game.matrix });
+    // setTimeout(this.play, 500);
+    this.play();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.gameFPS !== this.state.gameFPS && this.state.isRunning) {
+      this.changeSpeed();
+    }
+  }
+
+  loadPreset = preset => {
+    game = new GameOfLife(
+      preset.size,
+      preset.size,
+      preset.ruleType,
+      preset.isolationLimit,
+      preset.suffocationLimit
+    );
+
+    for (let i in preset.coords) {
+      game.toggleCell(preset.coords[i][0], preset.coords[i][1]);
+    }
+
     this.setState({
       matrix: game.matrix,
       isolationLimit: game.ISOLATION_LIMIT,
       suffocationLimit: game.SUFFOCATION_LIMIT
     });
-  }
+  };
 
   calcNextGen = () => {
     game.calcNextGen();
@@ -44,7 +84,10 @@ class GameManager extends React.Component {
 
   play = () => {
     this.setState({ isRunning: true });
-    intervalId = setInterval(this.calcNextGen, 200);
+    intervalId = setInterval(
+      this.calcNextGen,
+      1000 / Number(this.state.gameFPS)
+    );
   };
 
   pause = () => {
@@ -52,18 +95,29 @@ class GameManager extends React.Component {
     clearInterval(intervalId);
   };
 
+  changeSpeed = () => {
+    clearInterval(intervalId);
+    intervalId = setInterval(
+      this.calcNextGen,
+      1000 / Number(this.state.gameFPS)
+    );
+  };
+
   reset = () => {
     this.setState({ isRunning: false, matrix: [[]] });
     clearInterval(intervalId);
 
     game = new GameOfLife(
-      Number(this.state.height),
-      Number(this.state.height),
+      Number(this.state.width),
+      Number(this.state.width),
       this.state.ruleSet,
       Number(this.state.isolationLimit),
       Number(this.state.suffocationLimit)
     );
-    console.log(this.state.isolationLimit);
+
+    if (Number(this.state.seedChance) > 0) {
+      game.randomizeBoard(Number(this.state.seedChance) / 100);
+    }
     this.setState({ matrix: game.matrix });
   };
 
@@ -75,107 +129,52 @@ class GameManager extends React.Component {
 
   render() {
     return (
-      <>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {this.state.matrix.map((row, index) => (
-            <Row
-              row={row}
-              index={index}
-              game={game}
-              key={`row${index}`}
-              isRunning={this.state.isRunning}
-            />
-          ))}
-        </div>
-        <button onClick={this.state.isRunning ? null : this.calcNextGen}>
-          Next Gen
-        </button>
-        <button onClick={this.state.isRunning ? null : this.play}>Play</button>
-        <button onClick={this.pause}>Pause</button>
-        <button onClick={this.reset}>Reset</button>
-
-        {/* ---Options--- */}
-        <div>
-          <h1 style={{ color: "white", margin: "10px" }}>Options</h1>
-          {/* ---Size Option--- */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            <h3 style={{ color: "white", marginRight: "10px" }}>Grid Size: </h3>
-            <select
-              name="height"
-              value={this.state.height}
-              onChange={this.handleChange}
-            >
-              <option value={30}>30</option>
-              <option value={50}>50</option>
-              <option value={75}>75</option>
-            </select>
-          </div>
-          {/* ---Rules Option--- */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            <h3 style={{ color: "white", marginRight: "10px" }}>Rule Set: </h3>
-            <select
-              name="ruleSet"
-              value={this.state.ruleSet}
-              onChange={this.handleChange}
-            >
-              <option value={"custom"}>Custom</option>
-              <option value={"classic"}>Classic</option>
-            </select>
-          </div>
-          {/* ---Custom Rules Options--- */}
-          {this.state.ruleSet === "custom" ? (
-            <>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "10px"
-                }}
-              >
-                <h3 style={{ color: "white", marginRight: "10px" }}>
-                  Suffocation Limit:{" "}
-                </h3>
-                <input
-                  name="suffocationLimit"
-                  value={this.state.suffocationLimit}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "10px"
-                }}
-              >
-                <h3 style={{ color: "white", marginRight: "10px" }}>
-                  Isolation Limit:{" "}
-                </h3>
-                <input
-                  name="isolationLimit"
-                  value={this.state.isolationLimit}
-                  onChange={this.handleChange}
-                />
-              </div>
-            </>
-          ) : null}
-          <button onClick={this.reset}>Set Options</button>
-        </div>
-      </>
+      <ManagerWrapper width={`${game.width * 15 + 10}px`}>
+        <TitleText />
+        <ColorDescriptions />
+        {this.state.matrix.map((row, index) => (
+          <Row
+            row={row}
+            index={index}
+            game={game}
+            key={`row${index}`}
+            isRunning={this.state.isRunning}
+          />
+        ))}
+        <Controls
+          isRunning={this.state.isRunning}
+          calcNextGen={this.calcNextGen}
+          play={this.play}
+          pause={this.pause}
+          reset={this.reset}
+          handleChange={this.handleChange}
+          gameFPS={this.state.gameFPS}
+        />
+        <Options
+          width={this.state.width}
+          handleChange={this.handleChange}
+          ruleSet={this.state.ruleSet}
+          suffocationLimit={this.state.suffocationLimit}
+          isolationLimit={this.state.isolationLimit}
+          seedChance={this.state.seedChance}
+          reset={this.reset}
+          state={this.state}
+        />
+      </ManagerWrapper>
     );
   }
 }
 
 export default GameManager;
+
+const ManagerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: ${props => props.width};
+  margin: 0 auto;
+
+  button {
+    width: 100px;
+  }
+`;

@@ -2,19 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 class Cell extends React.PureComponent {
-  // shouldComponentUpdate(nextProps) {
-  //   let [row, col] = this.props;
-  //   if (
-  //     nextProps.game.matrix[row][col] === this.props.game.matrix[row][col] &&
-  //     nextProps.game.prevMatrix[row][col] ===
-  //       this.props.game.prevMatrix[row][col]
-  //   ) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
   toggleCell = () => {
     console.log(this.props.cell);
     this.props.game.toggleCell(this.props.row, this.props.col);
