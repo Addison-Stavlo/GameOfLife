@@ -1,6 +1,11 @@
 import React from "react";
 import Row from "./Row";
 import GameOfLife from "../gol_logic/GameOfLife.js";
+import styled from "styled-components";
+import TitleText from "./headers/TitleText";
+import ColorDescriptions from "./headers/ColorDescriptions";
+import Options from "./controlls/Options";
+import Controls from "./controlls/Controlls";
 
 let game = new GameOfLife(50, 50, "custom");
 let intervalId;
@@ -10,7 +15,6 @@ class GameManager extends React.Component {
     super(props);
 
     this.state = {
-      height: 50,
       width: 50,
       isolationLimit: 3,
       suffocationLimit: 6,
@@ -21,6 +25,11 @@ class GameManager extends React.Component {
   }
 
   componentDidMount() {
+    this.loadPreset1();
+  }
+
+  loadPreset1 = () => {
+    game = new GameOfLife(50, 50, "custom");
     game.toggleCell(25, 25);
     game.toggleCell(24, 25);
     game.toggleCell(25, 24);
@@ -31,7 +40,7 @@ class GameManager extends React.Component {
       isolationLimit: game.ISOLATION_LIMIT,
       suffocationLimit: game.SUFFOCATION_LIMIT
     });
-  }
+  };
 
   calcNextGen = () => {
     game.calcNextGen();
@@ -62,8 +71,8 @@ class GameManager extends React.Component {
     clearInterval(intervalId);
 
     game = new GameOfLife(
-      Number(this.state.height),
-      Number(this.state.height),
+      Number(this.state.width),
+      Number(this.state.width),
       this.state.ruleSet,
       Number(this.state.isolationLimit),
       Number(this.state.suffocationLimit)
@@ -80,204 +89,49 @@ class GameManager extends React.Component {
 
   render() {
     return (
-      <>
-        <h1 style={{ color: "white", fontSize: "30px", marginBottom: "10px" }}>
-          Addie's Game of Life
-        </h1>
-        <p style={{ color: "white", fontSize: "16px", marginBottom: "10px" }}>
-          (Set 'Classic' Rule Set for Conway's)
-        </p>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            width: "150px",
-            margin: "5px auto"
-          }}
-        >
-          <div
-            style={{
-              width: "15px",
-              height: "15px",
-              border: "1px dashed black",
-              marginRight: "10px",
-              background: "limegreen"
-            }}
+      <ManagerWrapper width={`${game.width * 15 + 10}px`}>
+        <TitleText />
+        <ColorDescriptions />
+        {this.state.matrix.map((row, index) => (
+          <Row
+            row={row}
+            index={index}
+            game={game}
+            key={`row${index}`}
+            isRunning={this.state.isRunning}
           />
-          <h1 style={{ color: "white" }}>New Life</h1>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            width: "150px",
-            margin: "5px auto"
-          }}
-        >
-          <div
-            style={{
-              width: "15px",
-              height: "15px",
-              border: "1px dashed black",
-              marginRight: "10px",
-              background: "green"
-            }}
-          />
-          <h1 style={{ color: "white" }}>Established Life</h1>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            width: "150px",
-            margin: "5px auto"
-          }}
-        >
-          <div
-            style={{
-              width: "15px",
-              height: "15px",
-              border: "1px dashed black",
-              marginRight: "10px",
-              background: "orange"
-            }}
-          />
-          <h1 style={{ color: "white" }}>Decaying Death</h1>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            width: "150px",
-            margin: "5px auto"
-          }}
-        >
-          <div
-            style={{
-              width: "15px",
-              height: "15px",
-              border: "1px dashed black",
-              marginRight: "10px",
-              background: "rgb(61, 38, 9)"
-            }}
-          />
-          <h1 style={{ color: "white" }}>No Life</h1>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {this.state.matrix.map((row, index) => (
-            <Row
-              row={row}
-              index={index}
-              game={game}
-              key={`row${index}`}
-              isRunning={this.state.isRunning}
-            />
-          ))}
-        </div>
-        <button onClick={this.state.isRunning ? null : this.calcNextGen}>
-          Next Gen
-        </button>
-        <button onClick={this.state.isRunning ? null : this.play}>Play</button>
-        <button onClick={this.pause}>Pause</button>
-        <button onClick={this.reset}>Reset</button>
-
-        {/* ---Options--- */}
-        <div>
-          <h1
-            style={{
-              color: "white",
-              margin: "10px",
-              textDecoration: "underline",
-              fontWeight: "bold"
-            }}
-          >
-            Options
-          </h1>
-          <p style={{ color: "white", fontSize: "14px", marginBottom: "20px" }}>
-            (note: be sure to hit "Set Options" or "Reset" button for the new
-            options to take effect.)
-          </p>
-          {/* ---Size Option--- */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            <h3 style={{ color: "white", marginRight: "10px" }}>Grid Size: </h3>
-            <select
-              name="height"
-              value={this.state.height}
-              onChange={this.handleChange}
-            >
-              <option value={30}>30</option>
-              <option value={50}>50</option>
-              <option value={75}>75</option>
-            </select>
-          </div>
-          {/* ---Rules Option--- */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            <h3 style={{ color: "white", marginRight: "10px" }}>Rule Set: </h3>
-            <select
-              name="ruleSet"
-              value={this.state.ruleSet}
-              onChange={this.handleChange}
-            >
-              <option value={"custom"}>Custom</option>
-              <option value={"classic"}>Classic</option>
-            </select>
-          </div>
-          {/* ---Custom Rules Options--- */}
-          {this.state.ruleSet === "custom" ? (
-            <>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "10px"
-                }}
-              >
-                <h3 style={{ color: "white", marginRight: "10px" }}>
-                  Suffocation Limit:{" "}
-                </h3>
-                <input
-                  style={{ width: "20px" }}
-                  name="suffocationLimit"
-                  value={this.state.suffocationLimit}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "10px"
-                }}
-              >
-                <h3 style={{ color: "white", marginRight: "10px" }}>
-                  Isolation Limit:{" "}
-                </h3>
-                <input
-                  style={{ width: "20px" }}
-                  name="isolationLimit"
-                  value={this.state.isolationLimit}
-                  onChange={this.handleChange}
-                />
-              </div>
-            </>
-          ) : null}
-          <button onClick={this.reset}>Set Options</button>
-        </div>
-      </>
+        ))}
+        <Controls
+          isRunning={this.state.isRunning}
+          calcNextGen={this.calcNextGen}
+          play={this.play}
+          pause={this.pause}
+          reset={this.reset}
+        />
+        <Options
+          width={this.state.width}
+          handleChange={this.handleChange}
+          ruleSet={this.state.ruleSet}
+          suffocationLimit={this.state.suffocationLimit}
+          isolationLimit={this.state.isolationLimit}
+          reset={this.reset}
+          state={this.state}
+        />
+      </ManagerWrapper>
     );
   }
 }
 
 export default GameManager;
+
+const ManagerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: ${props => props.width};
+  margin: 0 auto;
+
+  button {
+    width: 100px;
+  }
+`;
