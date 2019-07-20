@@ -7,7 +7,7 @@ import ColorDescriptions from "./headers/ColorDescriptions";
 import Options from "./controlls/Options";
 import Controls from "./controlls/Controlls";
 
-let game = new GameOfLife(50, 50, "custom");
+let game = new GameOfLife(50, 50, "classic");
 let intervalId;
 
 const preset1 = {
@@ -26,7 +26,7 @@ class GameManager extends React.Component {
       width: 50,
       isolationLimit: 3,
       suffocationLimit: 6,
-      ruleSet: "custom",
+      ruleSet: "classic",
       matrix: [[]],
       isRunning: false,
       gameFPS: 5,
@@ -35,7 +35,11 @@ class GameManager extends React.Component {
   }
 
   componentDidMount() {
-    this.loadPreset(preset1);
+    // this.loadPreset(preset1);
+    game.randomizeBoard(Number(this.state.seedChance) / 100);
+    this.setState({ matrix: game.matrix });
+    // setTimeout(this.play, 500);
+    this.play();
   }
 
   componentDidUpdate(prevProps, prevState) {

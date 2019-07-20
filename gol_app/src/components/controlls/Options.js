@@ -10,15 +10,6 @@ export default function Options(props) {
         options to take effect.)
       </p>
       <Option>
-        <h3>Grid Size: </h3>
-        <select name="width" value={props.width} onChange={props.handleChange}>
-          {[20, 30, 40, 50, 60, 70, 80].map(each => (
-            <option value={each}>{each}</option>
-          ))}
-        </select>
-      </Option>
-      {/* ---Rules Option--- */}
-      <Option>
         <h3>Seed Chance: {props.seedChance}</h3>
         <input
           name="seedChance"
@@ -29,6 +20,14 @@ export default function Options(props) {
           onChange={props.handleChange}
           className="slider"
         />
+      </Option>
+      <Option>
+        <h3>Grid Size: </h3>
+        <select name="width" value={props.width} onChange={props.handleChange}>
+          {[20, 30, 40, 50, 60, 70, 80].map(each => (
+            <option value={each}>{each}</option>
+          ))}
+        </select>
       </Option>
       <Option>
         <h3>Rule Set: </h3>
