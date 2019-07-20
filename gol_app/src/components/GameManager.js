@@ -4,9 +4,10 @@ import GameOfLife from "../gol_logic/GameOfLife.js";
 import styled from "styled-components";
 import TitleText from "./headers/TitleText";
 import ColorDescriptions from "./headers/ColorDescriptions";
-import Options from "./options/Options";
+import Options from "./controlls/Options";
+import Controls from "./controlls/Controlls";
 
-let game;
+let game = new GameOfLife(50, 50, "custom");
 let intervalId;
 
 class GameManager extends React.Component {
@@ -14,7 +15,6 @@ class GameManager extends React.Component {
     super(props);
 
     this.state = {
-      height: 50,
       width: 50,
       isolationLimit: 3,
       suffocationLimit: 6,
@@ -71,8 +71,8 @@ class GameManager extends React.Component {
     clearInterval(intervalId);
 
     game = new GameOfLife(
-      Number(this.state.height),
-      Number(this.state.height),
+      Number(this.state.width),
+      Number(this.state.width),
       this.state.ruleSet,
       Number(this.state.isolationLimit),
       Number(this.state.suffocationLimit)
@@ -89,38 +89,49 @@ class GameManager extends React.Component {
 
   render() {
     return (
-      <>
+      <ManagerWrapper width={`${game.width * 15 + 10}px`}>
         <TitleText />
         <ColorDescriptions />
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {this.state.matrix.map((row, index) => (
-            <Row
-              row={row}
-              index={index}
-              game={game}
-              key={`row${index}`}
-              isRunning={this.state.isRunning}
-            />
-          ))}
-        </div>
-        <button onClick={this.state.isRunning ? null : this.calcNextGen}>
-          Next Gen
-        </button>
-        <button onClick={this.state.isRunning ? null : this.play}>Play</button>
-        <button onClick={this.pause}>Pause</button>
-        <button onClick={this.reset}>Reset</button>
-
+        {this.state.matrix.map((row, index) => (
+          <Row
+            row={row}
+            index={index}
+            game={game}
+            key={`row${index}`}
+            isRunning={this.state.isRunning}
+          />
+        ))}
+        <Controls
+          isRunning={this.state.isRunning}
+          calcNextGen={this.calcNextGen}
+          play={this.play}
+          pause={this.pause}
+          reset={this.reset}
+        />
         <Options
-          height={this.state.height}
+          width={this.state.width}
           handleChange={this.handleChange}
           ruleSet={this.state.ruleSet}
           suffocationLimit={this.state.suffocationLimit}
           isolationLimit={this.state.isolationLimit}
           reset={this.reset}
+          state={this.state}
         />
-      </>
+      </ManagerWrapper>
     );
   }
 }
 
 export default GameManager;
+
+const ManagerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: ${props => props.width};
+  margin: 0 auto;
+
+  button {
+    width: 100px;
+  }
+`;

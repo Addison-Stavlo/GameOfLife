@@ -11,14 +11,10 @@ export default function Options(props) {
       </p>
       <Option>
         <h3>Grid Size: </h3>
-        <select
-          name="height"
-          value={props.height}
-          onChange={props.handleChange}
-        >
-          <option value={30}>30</option>
-          <option value={50}>50</option>
-          <option value={75}>75</option>
+        <select name="width" value={props.width} onChange={props.handleChange}>
+          {[20, 30, 40, 50, 60, 70, 80].map(each => (
+            <option value={each}>{each}</option>
+          ))}
         </select>
       </Option>
       {/* ---Rules Option--- */}
