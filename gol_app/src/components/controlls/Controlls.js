@@ -18,7 +18,7 @@ export default function Controls(props) {
           name="gameFPS"
           type="range"
           min={1}
-          max={10}
+          max={20}
           value={props.gameFPS}
           onChange={props.handleChange}
         />
