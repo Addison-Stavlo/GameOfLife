@@ -7,6 +7,7 @@ import ColorDescriptions from "./headers/ColorDescriptions";
 import Options from "./controlls/Options";
 import Controls from "./controlls/Controlls";
 import presets from "../gol_logic/presets";
+import PresetsBar from "./controlls/PresetsBar";
 
 let game = new GameOfLife(50, 50, "classic");
 let intervalId;
@@ -28,11 +29,11 @@ class GameManager extends React.Component {
   }
 
   componentDidMount() {
-    // game.randomizeBoard(Number(this.state.seedChance) / 100);
-    // this.setState({ matrix: game.matrix });
-    // this.play();
-    this.loadPreset(presets[2]);
+    game.randomizeBoard(Number(this.state.seedChance) / 100);
+    this.setState({ matrix: game.matrix });
     this.play();
+    // this.loadPreset(presets[2]);
+    // this.play();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -42,6 +43,8 @@ class GameManager extends React.Component {
   }
 
   loadPreset = preset => {
+    this.pause();
+
     game = new GameOfLife(
       preset.size,
       preset.size,
@@ -126,6 +129,11 @@ class GameManager extends React.Component {
       <ManagerWrapper width={`${game.width * 15 + 10}px`}>
         <TitleText />
         <ColorDescriptions />
+        <PresetsBar
+          presets={presets}
+          loadPreset={this.loadPreset}
+          isRunning={this.state.isRunning}
+        />
         {this.state.matrix.map((row, index) => (
           <Row
             row={row}

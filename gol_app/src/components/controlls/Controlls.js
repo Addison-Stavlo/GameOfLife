@@ -5,11 +5,21 @@ export default function Controls(props) {
   return (
     <Controller>
       <div className="button-holder">
-        <button onClick={props.isRunning ? null : props.calcNextGen}>
+        <button
+          onClick={props.isRunning ? null : props.calcNextGen}
+          disabled={props.isRunning}
+        >
           Next Gen
         </button>
-        <button onClick={props.isRunning ? null : props.play}>Play</button>
-        <button onClick={props.pause}>Pause</button>
+        <button
+          onClick={props.isRunning ? null : props.play}
+          disabled={props.isRunning}
+        >
+          Play
+        </button>
+        <button onClick={props.pause} disabled={!props.isRunning}>
+          Pause
+        </button>
         <button onClick={props.reset}>Reset</button>
       </div>
       <div className="gameFPS-bar">

@@ -1,4 +1,5 @@
 const preset1 = {
+  name: "Preset 1",
   size: 50,
   ruleType: "custom",
   isolationLimit: 3,
@@ -7,6 +8,7 @@ const preset1 = {
 };
 
 const preset2 = {
+  name: "Oscillator",
   size: 20,
   ruleType: "classic",
   isolationLimit: 3,
@@ -23,6 +25,7 @@ const preset2 = {
 };
 
 const preset3 = {
+  name: "My Processor",
   size: 50,
   ruleType: "custom",
   isolationLimit: 2,
@@ -31,6 +34,7 @@ const preset3 = {
 };
 
 const preset4 = {
+  name: "Splitting the Atom",
   size: 50,
   ruleType: "custom",
   isolationLimit: 2,
