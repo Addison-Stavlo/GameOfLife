@@ -1,5 +1,5 @@
 const preset1 = {
-  name: "Preset 1",
+  name: "Instability",
   size: 50,
   ruleType: "custom",
   isolationLimit: 3,
