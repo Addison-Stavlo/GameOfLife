@@ -4,8 +4,8 @@ import styled from "styled-components";
 export default function TitleText(props) {
   return (
     <Title>
-      <h1>Addie's Game of Life</h1>
-      <p>(Set 'Classic' Rule Set for Conway's)</p>
+      <h1>Addie's Cellular Automata</h1>
+      <p>(& Conway's Game of Life)</p>
     </Title>
   );
 }

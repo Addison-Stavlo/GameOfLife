@@ -4,6 +4,7 @@ import styled from "styled-components";
 export default function Controls(props) {
   return (
     <Controller>
+      <h2>Controls</h2>
       <div className="button-holder">
         <button
           onClick={props.isRunning ? null : props.calcNextGen}
@@ -39,6 +40,11 @@ export default function Controls(props) {
 
 const Controller = styled.div`
   border: 1px solid white;
+
+  h2 {
+    color: white;
+    margin: 5px;
+  }
 
   button-holder {
     width: 600px;

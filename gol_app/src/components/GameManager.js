@@ -63,6 +63,8 @@ class GameManager extends React.Component {
       suffocationLimit: game.SUFFOCATION_LIMIT,
       ruleSet: game.gameMode
     });
+
+    this.play();
   };
 
   calcNextGen = () => {
@@ -129,11 +131,6 @@ class GameManager extends React.Component {
       <ManagerWrapper width={`${game.width * 15 + 10}px`}>
         <TitleText />
         <ColorDescriptions />
-        <PresetsBar
-          presets={presets}
-          loadPreset={this.loadPreset}
-          isRunning={this.state.isRunning}
-        />
         {this.state.matrix.map((row, index) => (
           <Row
             row={row}
@@ -143,24 +140,34 @@ class GameManager extends React.Component {
             isRunning={this.state.isRunning}
           />
         ))}
-        <Controls
-          isRunning={this.state.isRunning}
-          calcNextGen={this.calcNextGen}
-          play={this.play}
-          pause={this.pause}
-          reset={this.reset}
-          handleChange={this.handleChange}
-          gameFPS={this.state.gameFPS}
-        />
-        <Options
-          width={this.state.width}
-          handleChange={this.handleChange}
-          ruleSet={this.state.ruleSet}
-          suffocationLimit={this.state.suffocationLimit}
-          isolationLimit={this.state.isolationLimit}
-          seedChance={this.state.seedChance}
-          reset={this.reset}
-        />
+
+        <div className="controls-wrapper">
+          <div className="controls-vert">
+            <Controls
+              isRunning={this.state.isRunning}
+              calcNextGen={this.calcNextGen}
+              play={this.play}
+              pause={this.pause}
+              reset={this.reset}
+              handleChange={this.handleChange}
+              gameFPS={this.state.gameFPS}
+            />
+            <PresetsBar
+              presets={presets}
+              loadPreset={this.loadPreset}
+              isRunning={this.state.isRunning}
+            />
+          </div>
+          <Options
+            width={this.state.width}
+            handleChange={this.handleChange}
+            ruleSet={this.state.ruleSet}
+            suffocationLimit={this.state.suffocationLimit}
+            isolationLimit={this.state.isolationLimit}
+            seedChance={this.state.seedChance}
+            reset={this.reset}
+          />
+        </div>
       </ManagerWrapper>
     );
   }
@@ -177,5 +184,14 @@ const ManagerWrapper = styled.div`
 
   button {
     width: 100px;
+  }
+
+  .controls-wrapper {
+    display: flex;
+
+    .controls-vert {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;

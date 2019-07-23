@@ -4,11 +4,7 @@ import styled from "styled-components";
 export default function Options(props) {
   return (
     <OptionsWrapper>
-      <h1>Options</h1>
-      <p>
-        (note: be sure to hit "Set Options" or "Reset" button for the new
-        options to take effect.)
-      </p>
+      <h1>Create Game</h1>
       <Option>
         <h3>Seed Chance: {props.seedChance}</h3>
         <input
@@ -69,18 +65,17 @@ export default function Options(props) {
           </Option>
         </>
       ) : null}
-      <button onClick={props.reset}>Set Options</button>
+      <button onClick={props.reset}>Create Game Board</button>
     </OptionsWrapper>
   );
 }
 
 const OptionsWrapper = styled.div`
-  /* border: 2px solid rgb(70, 70, 70); */
+  border: 1px solid white;
+
   h1 {
     color: white;
-    margin: 10px;
-    text-decoration: underline;
-    font-weight: bold;
+    margin: 5px;
   }
   p {
     color: white;
@@ -90,11 +85,13 @@ const OptionsWrapper = styled.div`
 `;
 
 const Option = styled.div`
+  text-align: left;
+  margin: 5px;
   display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  align-items: center;
 
   h3 {
+    display: inline-block;
     color: white;
     margin-right: 10px;
   }
