@@ -32,8 +32,6 @@ class GameManager extends React.Component {
     game.randomizeBoard(Number(this.state.seedChance) / 100);
     this.setState({ matrix: game.matrix });
     this.play();
-    // this.loadPreset(presets[2]);
-    // this.play();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -43,7 +41,8 @@ class GameManager extends React.Component {
   }
 
   loadPreset = preset => {
-    this.pause();
+    this.setState({ isRunning: false, matrix: [[]] });
+    clearInterval(intervalId);
 
     game = new GameOfLife(
       preset.size,
@@ -156,6 +155,7 @@ class GameManager extends React.Component {
               presets={presets}
               loadPreset={this.loadPreset}
               isRunning={this.state.isRunning}
+              reset={this.reset}
             />
           </div>
           <Options
