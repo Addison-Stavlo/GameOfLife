@@ -25,9 +25,10 @@ export default function ColorDescriptions(props) {
 }
 
 const DescriptionWrapper = styled.div`
-  /* border: 2px solid rgb(70, 70, 70); */
+  /* border: 1px solid white; */
   max-width: 200px;
   margin: 0 auto;
+  padding: 10px;
 `;
 const ColorDescriptor = styled.div`
   display: flex;
