@@ -128,7 +128,6 @@ class GameManager extends React.Component {
   render() {
     return (
       <ManagerWrapper width={`${game.width * 15 + 10}px`}>
-        <TitleText />
         <ColorDescriptions />
         {this.state.matrix.map((row, index) => (
           <Row
