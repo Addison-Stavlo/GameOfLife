@@ -12,7 +12,7 @@ export default function TitleText(props) {
 
 const Title = styled.div`
   /* border: 2px solid rgb(70, 70, 70); */
-  max-width: 300px;
+  max-width: 500px;
   margin: 0 auto;
   h1 {
     color: white;

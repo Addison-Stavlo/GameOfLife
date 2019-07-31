@@ -2,7 +2,7 @@ import React from "react";
 import Row from "./Row";
 import GameOfLife from "../gol_logic/GameOfLife.js";
 import styled from "styled-components";
-import TitleText from "./headers/TitleText";
+
 import ColorDescriptions from "./headers/ColorDescriptions";
 import Options from "./controlls/Options";
 import Controls from "./controlls/Controlls";
@@ -128,8 +128,6 @@ class GameManager extends React.Component {
   render() {
     return (
       <ManagerWrapper width={`${game.width * 15 + 10}px`}>
-        <TitleText />
-        <ColorDescriptions />
         {this.state.matrix.map((row, index) => (
           <Row
             row={row}
@@ -167,6 +165,7 @@ class GameManager extends React.Component {
             seedChance={this.state.seedChance}
             reset={this.reset}
           />
+          <ColorDescriptions />
         </div>
       </ManagerWrapper>
     );

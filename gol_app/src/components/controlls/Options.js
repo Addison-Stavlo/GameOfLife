@@ -33,7 +33,7 @@ export default function Options(props) {
           onChange={props.handleChange}
         >
           <option value={"custom"}>Custom</option>
-          <option value={"classic"}>Classic</option>
+          <option value={"classic"}>Conway's</option>
         </select>
       </Option>
       {/* ---Custom Rules Options--- */}
