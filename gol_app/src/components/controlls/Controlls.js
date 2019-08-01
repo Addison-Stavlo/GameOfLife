@@ -50,6 +50,12 @@ const Controller = styled.div`
     width: 500px;
     display: flex;
     justify-content: space-around;
+
+    button {
+      width: 125px;
+      margin: 5px 0 10px;
+      padding: 5px;
+    }
   }
 
   .gameFPS-bar {

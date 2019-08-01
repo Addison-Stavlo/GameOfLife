@@ -83,6 +83,11 @@ const OptionsWrapper = styled.div`
     font-size: 14px;
     margin-bottom: 20px;
   }
+  button {
+    width: 200px;
+    margin: 5px 0 10px;
+    padding: 5px;
+  }
 `;
 
 const Option = styled.div`

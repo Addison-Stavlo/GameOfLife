@@ -187,12 +187,6 @@ const ManagerWrapper = styled.div`
   align-items: flex-start;
   min-width: ${props => props.width};
 
-  button {
-    width: 125px;
-    margin: 5px 0 10px;
-    padding: 5px;
-  }
-
   .content-wrapper {
     width: 40%;
     max-width: 600px;
