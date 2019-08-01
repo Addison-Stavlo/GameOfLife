@@ -72,6 +72,7 @@ export default function Options(props) {
 
 const OptionsWrapper = styled.div`
   border: 1px solid white;
+  width: 300px;
 
   h1 {
     color: white;
@@ -81,6 +82,11 @@ const OptionsWrapper = styled.div`
     color: white;
     font-size: 14px;
     margin-bottom: 20px;
+  }
+  button {
+    width: 200px;
+    margin: 5px 0 10px;
+    padding: 5px;
   }
 `;
 

@@ -4,6 +4,7 @@ import styled from "styled-components";
 export default function ColorDescriptions(props) {
   return (
     <DescriptionWrapper>
+      <h2>Legend:</h2>
       <ColorDescriptor color={"limegreen"}>
         <div />
         <h1>New Life</h1>
@@ -25,16 +26,23 @@ export default function ColorDescriptions(props) {
 }
 
 const DescriptionWrapper = styled.div`
-  /* border: 1px solid white; */
   max-width: 200px;
-  margin: 0 auto;
   padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid white;
+
+  h2 {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
 `;
 const ColorDescriptor = styled.div`
   display: flex;
   justify-content: flex-start;
-  width: 150px;
-  margin: 5px auto;
+  align-items: center;
+  width: 200px;
+  margin: 5px 0;
 
   div {
     width: 15px;
