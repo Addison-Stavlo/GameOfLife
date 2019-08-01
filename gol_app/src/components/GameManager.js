@@ -2,7 +2,7 @@ import React from "react";
 import Row from "./Row";
 import GameOfLife from "../gol_logic/GameOfLife.js";
 import styled from "styled-components";
-
+import Description from "./headers/Description";
 import ColorDescriptions from "./headers/ColorDescriptions";
 import Options from "./controlls/Options";
 import Controls from "./controlls/Controlls";
@@ -128,45 +128,50 @@ class GameManager extends React.Component {
   render() {
     return (
       <ManagerWrapper width={`${game.width * 15 + 10}px`}>
-        {this.state.matrix.map((row, index) => (
-          <Row
-            row={row}
-            index={index}
-            game={game}
-            key={`row${index}`}
-            isRunning={this.state.isRunning}
-          />
-        ))}
+        <div className="content-wrapper">
+          <Description />
 
-        <div className="controls-wrapper">
-          <div className="controls-vert">
-            <Controls
-              isRunning={this.state.isRunning}
-              calcNextGen={this.calcNextGen}
-              play={this.play}
-              pause={this.pause}
-              reset={this.reset}
+          <div className="controls-wrapper">
+            <div className="controls-vert">
+              <Controls
+                isRunning={this.state.isRunning}
+                calcNextGen={this.calcNextGen}
+                play={this.play}
+                pause={this.pause}
+                reset={this.reset}
+                handleChange={this.handleChange}
+                gameFPS={this.state.gameFPS}
+              />
+              <PresetsBar
+                presets={presets}
+                loadPreset={this.loadPreset}
+                isRunning={this.state.isRunning}
+                reset={this.reset}
+              />
+            </div>
+            <Options
+              width={this.state.width}
               handleChange={this.handleChange}
-              gameFPS={this.state.gameFPS}
-            />
-            <PresetsBar
-              presets={presets}
-              loadPreset={this.loadPreset}
-              isRunning={this.state.isRunning}
+              ruleSet={this.state.ruleSet}
+              suffocationLimit={this.state.suffocationLimit}
+              isolationLimit={this.state.isolationLimit}
+              seedChance={this.state.seedChance}
               reset={this.reset}
             />
           </div>
-          <Options
-            width={this.state.width}
-            handleChange={this.handleChange}
-            ruleSet={this.state.ruleSet}
-            suffocationLimit={this.state.suffocationLimit}
-            isolationLimit={this.state.isolationLimit}
-            seedChance={this.state.seedChance}
-            reset={this.reset}
-          />
-          <ColorDescriptions />
         </div>
+        <div className="row-holder">
+          {this.state.matrix.map((row, index) => (
+            <Row
+              row={row}
+              index={index}
+              game={game}
+              key={`row${index}`}
+              isRunning={this.state.isRunning}
+            />
+          ))}
+        </div>
+        <ColorDescriptions />
       </ManagerWrapper>
     );
   }
@@ -176,7 +181,9 @@ export default GameManager;
 
 const ManagerWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   min-width: ${props => props.width};
 
