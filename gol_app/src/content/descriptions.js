@@ -12,10 +12,12 @@ const whatIs = new Description("What is a Cellular Automatom???", [
       a set of predetermined rules. Each generation is calculated by
       evaluating the amount of active neighbors each cell has. Depending on
       the amount of active neighbors and the ruleset, a cell may become
-      activated or deactivated. Given a fixed ruleset, the same initial state
+      activated or deactivated.`,
+  `Given a fixed ruleset, the same initial state
       will evolve in the same manner every time it is run. Cellular Automata
       have given aid to various fields of scientific research including
-      biology, physics, and chemistry.`
+      biology, physics, and chemistry and has also been a subject of interest 
+      in computer science for decades.`
 ]);
 
 const conwayRule = new Description("Conway's Rules are:", [
@@ -54,4 +56,16 @@ const whatsDiff = new Description(
   customRule
 );
 
-export default [whatIs, whatConway, whatsDiff];
+const howPlay = new Description("How do I play???", [
+  `On loading this page, Conway's Game starts playing by default.  You can
+     look to the Controls window to change the speed of the game or pause and trigger each 
+     generation step by step with a button click.`,
+  `  While letting the game play 
+     you may find that some areas of stable life occur and no longer change on 
+     the screen.  You can try to perturb the system into action by clicking on 
+     the grid to individually activate or deactivate a cell.`,
+  `Look to the Create Game window to select some options and 
+     generate a board.  If you are looking for a blank slate try setting the 
+     Seed Chance property to 0.  There are also a few examples under the Presets window`
+]);
+export default [whatIs, whatConway, whatsDiff, howPlay];

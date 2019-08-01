@@ -52,8 +52,6 @@ const Descriptor = styled.section`
   max-width: 600px;
   /* width: 40%; */
   line-height: 18px;
-  /* margin: 0 auto; */
-  border: 1px solid blue;
 
   p {
     text-align: left;
@@ -73,8 +71,6 @@ const Descriptor = styled.section`
     }
     span {
       position: relative;
-      /* left: -30px; */
-      /* text-indent: 500px; */
     }
   }
 `;

@@ -179,8 +179,6 @@ const ManagerWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   min-width: ${props => props.width};
-  /* margin: 0 auto; */
-  border: 1px solid red;
 
   button {
     width: 100px;
