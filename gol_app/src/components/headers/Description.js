@@ -21,11 +21,16 @@ export default class Description extends React.Component {
 
     return (
       <Descriptor>
-        {descriptions.map((desc, indx) => (
-          <button onClick={() => this.changeSelection(indx)}>
-            {desc.title}
-          </button>
-        ))}
+        <div className="button-holder">
+          {descriptions.map((desc, indx) => (
+            <button
+              disabled={indx == this.state.selected}
+              onClick={() => this.changeSelection(indx)}
+            >
+              {desc.title}
+            </button>
+          ))}
+        </div>
         <h1>{selected.title}</h1>
         {selected.paragraphs.map(para => (
           <p>{para}</p>
@@ -50,9 +55,24 @@ export default class Description extends React.Component {
 const Descriptor = styled.section`
   color: white;
   max-width: 600px;
-  /* width: 40%; */
   line-height: 18px;
 
+  .button-holder {
+    display: flex;
+    flex-wrap: wrap;
+
+    button {
+      width: 50%;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 5px;
+    }
+  }
+
+  h1 {
+    font-size: 22px;
+    margin: 15px 0 10px;
+  }
   p {
     text-align: left;
     text-indent: 40px;

@@ -46,7 +46,7 @@ const customRule = new Description("The Custom Rules are:", [
 ]);
 
 const whatsDiff = new Description(
-  "What is the Custom game mode?",
+  "What is the Custom game mode???",
   [
     `There are two main things that differ about this CA, the first is the 
     two extra visible states for new life and decaying death.  This gives the 
