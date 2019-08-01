@@ -28,5 +28,6 @@ const PresetWrapper = styled.div`
 
   div {
     display: flex;
+    justify-content: space-around;
   }
 `;

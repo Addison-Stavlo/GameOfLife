@@ -56,6 +56,7 @@ const Descriptor = styled.section`
   color: white;
   max-width: 600px;
   line-height: 18px;
+  padding: 10px;
 
   .button-holder {
     display: flex;

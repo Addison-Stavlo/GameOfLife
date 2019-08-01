@@ -46,8 +46,8 @@ const Controller = styled.div`
     margin: 5px;
   }
 
-  button-holder {
-    width: 600px;
+  .button-holder {
+    width: 500px;
     display: flex;
     justify-content: space-around;
   }

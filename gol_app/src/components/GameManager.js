@@ -130,7 +130,7 @@ class GameManager extends React.Component {
       <ManagerWrapper width={`${game.width * 15 + 10}px`}>
         <div className="content-wrapper">
           <Description />
-
+          <hr />
           <div className="controls-wrapper">
             <div className="controls-vert">
               <Controls
@@ -158,6 +158,7 @@ class GameManager extends React.Component {
               seedChance={this.state.seedChance}
               reset={this.reset}
             />
+            <ColorDescriptions />
           </div>
         </div>
         <div className="row-holder">
@@ -171,7 +172,6 @@ class GameManager extends React.Component {
             />
           ))}
         </div>
-        <ColorDescriptions />
       </ManagerWrapper>
     );
   }
@@ -184,19 +184,41 @@ const ManagerWrapper = styled.div`
   /* flex-direction: column; */
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-width: ${props => props.width};
 
   button {
-    width: 100px;
+    width: 125px;
+    margin: 5px 0 10px;
+    padding: 5px;
   }
 
-  .controls-wrapper {
+  .content-wrapper {
+    width: 40%;
+    max-width: 600px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    .controls-vert {
+    @media (max-width: 1300px) {
+      width: 80%;
+      max-width: 800px;
+    }
+
+    hr {
+      width: 90%;
+      margin-bottom: 30px;
+    }
+    .controls-wrapper {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .controls-vert {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 `;

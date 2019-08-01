@@ -72,6 +72,7 @@ export default function Options(props) {
 
 const OptionsWrapper = styled.div`
   border: 1px solid white;
+  width: 300px;
 
   h1 {
     color: white;
