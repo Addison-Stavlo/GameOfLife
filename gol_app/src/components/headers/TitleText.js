@@ -6,6 +6,7 @@ export default function TitleText(props) {
     <Title>
       <h1>Addie's Cellular Automata</h1>
       <p>(& Conway's Game of Life)</p>
+      <hr />
     </Title>
   );
 }
@@ -13,10 +14,10 @@ export default function TitleText(props) {
 const Title = styled.div`
   /* border: 2px solid rgb(70, 70, 70); */
   max-width: 500px;
-  margin: 0 auto;
+  margin: 20px auto;
   h1 {
     color: white;
-    font-size: 30px;
+    font-size: 40px;
     margin-bottom: 10px;
   }
 
@@ -24,5 +25,8 @@ const Title = styled.div`
     color: white;
     font-size: 16px;
     margin-bottom: 10px;
+  }
+  hr {
+    margin: 30px 0;
   }
 `;
