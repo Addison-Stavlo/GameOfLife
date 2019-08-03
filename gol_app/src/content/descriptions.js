@@ -6,7 +6,7 @@ class Description {
   }
 }
 
-const whatIs = new Description("What is a Cellular Automatom???", [
+const whatIs = new Description("What is a Cellular Automaton???", [
   `A Cellular Automaton is discrete mathematical model consisting of a grid
       of cells whose current state is dependant only on its previous state and
       a set of predetermined rules. Each generation is calculated by
